@@ -35,6 +35,11 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
         setPreferredSize(size);
         setMinimumSize(size);
         setMaximumSize(size);
+
+        addMouseListener(this);
+        addMouseMotionListener(this);
+        setFocusable(true);
+
         startGame();
     }
 
@@ -48,6 +53,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
         // antialiasing to have decent looking graphics
         g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.clearRect(0, 0, WIDTH, HEIGHT);
 
         gsm.draw(g2d);
 

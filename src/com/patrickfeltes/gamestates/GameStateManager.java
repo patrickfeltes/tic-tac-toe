@@ -11,7 +11,7 @@ public class GameStateManager {
 
     public GameStateManager() {
         gameStates = new Stack<GameState>();
-        gameStates.add(new MenuState(this));
+        addState(new MenuState(this));
     }
 
     public void update() {
@@ -24,6 +24,11 @@ public class GameStateManager {
 
     public void mouseClicked(MouseEvent e) {
         if(gameStates.size() != 0) { gameStates.peek().mouseClicked(e); }
+    }
+
+    // add a state to the game
+    public void addState(GameState state) {
+        gameStates.push(state);
     }
 
 }
