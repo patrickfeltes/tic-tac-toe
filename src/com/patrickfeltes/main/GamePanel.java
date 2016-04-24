@@ -1,5 +1,7 @@
 package com.patrickfeltes.main;
 
+import com.patrickfeltes.gamestates.GameStateManager;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -16,7 +18,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
     // mouse position
     public static int mouseX, mouseY;
 
-    // Thread
+    // game loop
     private Thread thread;
     private int FPS = 60;
     private long targetTime = 1000 / FPS;
@@ -24,6 +26,9 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 
     // Graphics
     private Graphics2D g2d;
+
+    // game state manager
+    private GameStateManager gsm;
 
     // constructor
     public GamePanel() {
@@ -34,7 +39,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
     }
 
     public void update() {
-
+        gsm.update();
     }
 
     public void paintComponent(Graphics g) {
@@ -43,6 +48,10 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
         // antialiasing to have decent looking graphics
         g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        gsm.draw(g2d);
+
+        g2d.dispose();
     }
 
     // main loop for the game
@@ -69,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 
     // events
     public void mouseClicked(MouseEvent e) {
-
+        gsm.mouseClicked(e);
     }
 
     public void mouseDragged(MouseEvent e) {
@@ -87,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable, MouseListener, MouseM
 
     // helper methods
     private void startGame() {
+        gsm = new GameStateManager();
         isRunning = true;
         thread = new Thread(this);
         thread.start();
