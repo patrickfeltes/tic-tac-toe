@@ -94,6 +94,14 @@ public class Board {
     private void makeMove(Point move, int player) {
         board[move.y][move.x] = player;
     }
+    public void makeUserMove(Point move) {
+        // only make the move if the selected cell is empty
+        if(board[move.y][move.x] == EMPTY) {
+            makeMove(move, USER);
+            switchPlayer();
+            makeAIMove();
+        }
+    }
 
     private void undoMove(Point move) {
         board[move.y][move.x] = EMPTY;
@@ -103,7 +111,7 @@ public class Board {
         currentPlayer = (currentPlayer == USER) ? AI : USER;
     }
 
-    private boolean hasWon(int player) {
+    public boolean hasWon(int player) {
         if(checkRows(player)) return true;
         else if(checkCols(player)) return true;
         else if(checkDiagonals(player)) return true;
@@ -150,10 +158,22 @@ public class Board {
         return true;
     }
 
+    public void reset() {
+        board = new int[size][size];
+        currentPlayer = USER;
+    }
 
     public int[][] getBoard() {
         return board;
     }
     public int getCurrentPlayer() { return currentPlayer; }
+
+    public int getAI() {
+        return AI;
+    }
+
+    public int getUser() {
+        return USER;
+    }
 
 }
