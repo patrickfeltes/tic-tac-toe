@@ -1,3 +1,3 @@
-#Tic-Tac-Toe-GUI
+# Tic-Tac-Toe-GUI
 
-A GUI version of the game Tic Tac Toe. Hopefully with two player and single player vs. AI implemented.
+A graphical version of tic tac toe with single player vs. AI implemented.
